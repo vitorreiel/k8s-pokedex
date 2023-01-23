@@ -1,6 +1,9 @@
 pipeline {
 	agent any
 	stages {
+		stage ('SCM') {
+			checkout scm
+		}
 		stage ('subir docker compose - app'){
 			steps {
 				sh 'docker compose up --build -d'	
@@ -21,9 +24,6 @@ pipeline {
 	}
 }
 node {
-	stage ('SCM') {
-		checkout scm
-	}
 	stage ('SonarQube analise') {
 		def scannerHome = tool 'SonarQubeScanner';
 		withSonarQubeEnv () {
