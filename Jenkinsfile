@@ -1,9 +1,6 @@
 pipeline {
 	agent any
 	stages {
-		stage ('SCM') {
-			checkout scm
-		}
 		stage ('subir docker compose - app'){
 			steps {
 				sh 'docker compose up --build -d'	
