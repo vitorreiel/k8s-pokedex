@@ -17,5 +17,12 @@ pipeline {
 				sh './teste-app.sh'
 			}
 		}
+		stage ('SonarQube analises'){
+			steps {
+				withSonarQubeEnv('sonarqube-pokedex'){
+					sh 'mvn sonar:sonar'
+				}
+			}
+		}
 	}
 }
