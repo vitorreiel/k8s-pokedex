@@ -1,8 +1,5 @@
 pipeline {
 	agent any
-//	environment {
-//		PATH="$PATH:/opt/sonar-scanner/bin"
-//	}
 	stages {
 		stage ('subir docker compose - app'){
 			steps {
@@ -23,13 +20,8 @@ pipeline {
 		stage ('SonarQube analises'){
 			def scannerHome = tool 'SonarScanner 4.0';
 			withSonarQubeEnv('sonarqube-pokedex'){
-					sh '${scannerHome}/bin/sonar-scanner'
+				sh '${scannerHome}/bin/sonar-scanner'
 			}
-//			steps {
-//				withSonarQubeEnv('sonarqube-pokedex'){
-//					sh 'sonar-scanner'
-//				}
-//			}
 		}
 	}
 }
