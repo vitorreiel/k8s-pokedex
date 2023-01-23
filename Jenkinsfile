@@ -20,7 +20,7 @@ pipeline {
 		stage ('SonarQube analises'){
 			steps {
 				withSonarQubeEnv('sonarqube-pokedex'){
-					sh 'sonar-scanner'
+					sh 'mvn clean package sonar:sonar'
 				}
 			}
 		}
