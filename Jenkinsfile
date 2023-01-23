@@ -1,14 +1,3 @@
-node {
-	stage ('SCM') {
-		checkout scm
-	}
-	stage ('SonarQube analise') {
-		def scannerHome = tool 'SonarQubeScanner';
-		withSonarQubeEnv () {
-			sh "${scannerHome}/bin/sonar-scanner"
-		}
-	}
-}
 pipeline {
 	agent any
 	stages {
@@ -28,12 +17,22 @@ pipeline {
 				sh './teste-app.sh'
 			}
 		}
-		stage ('Sonarqube restart'){
-			steps {
-				sh 'systemctl restart sonar.service'
-			}
-		}
 
 	}
 }
-
+node {
+	stage ('SCM') {
+		checkout scm
+	}
+	stage ('SonarQube analise') {
+		def scannerHome = tool 'SonarQubeScanner';
+		withSonarQubeEnv () {
+			sh "${scannerHome}/bin/sonar-scanner"
+		}
+	}
+	stage ('Sonarqube restart'){
+		steps {
+			sh 'systemctl restart sonar.service'
+		}
+	}
+}
