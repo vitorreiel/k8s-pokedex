@@ -30,9 +30,5 @@ node {
 			sh "${scannerHome}/bin/sonar-scanner"
 		}
 	}
-	stage ('Sonarqube restart'){
-		steps {
-			sh 'systemctl restart sonar.service'
-		}
-	}
+
 }
