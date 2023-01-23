@@ -1,16 +1,5 @@
 pipeline {
 	agent any
-	node {
-		stage ('SCM') {
-			checkout scm
-		}
-		stage ('SonarQube Analysis') {
-			def scannerHome = tool 'SonarQubeScanner';
-			withSonarQubeEnv ('oi') {
-				sh "${scannerHome}/bin/sonar-scanner"
-			}
-		}
-	}	
 	stages {
 		stage ('subir docker compose - app'){
 			steps {
@@ -29,5 +18,16 @@ pipeline {
 			}
 		}
 
+	}
+}
+node {
+	stage ('SCM') {
+		checkout scm
+	}
+	stage ('SonarQube Analysis') {
+		def scannerHome = tool 'SonarQubeScanner';
+		withSonarQubeEnv ('oi') {
+			sh "${scannerHome}/bin/sonar-scanner"
+		}
 	}
 }
