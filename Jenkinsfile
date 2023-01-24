@@ -20,10 +20,10 @@ pipeline {
 		stage ('SonarQube - Connection and Validation'){
 			steps {
 				script {
-					scannerHome = tool 'SonarQubeScanner';
+					scannerHome = tool 'SonarQubeScanner'
 				}
 				withSonarQubeEnv ('') {
-					sh "${scannerHome}/bin/sonar-scanner"
+					sh '${scannerHome}/bin/sonar-scanner'
 				}
 			}
 		}
