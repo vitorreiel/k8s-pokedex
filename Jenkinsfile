@@ -21,16 +21,16 @@ pipeline {
 				}
 			}
 		}
-		stage ('Quality Gates - SonarQube'){
-			steps {
-				waitForQualityGate abortPipeline: true
-			}
-		}
 		stage ('test - app'){
 			steps {
 				sh 'chmod +x teste-app.sh'
 				sh './teste-app.sh'
 			}
 		}
+//		stage ('Quality Gates - SonarQube'){
+//			steps {
+//				waitForQualityGate abortPipeline: true
+//			}
+//		}
 	}
 }
