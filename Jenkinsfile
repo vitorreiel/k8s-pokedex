@@ -11,8 +11,14 @@ pipeline {
 				sh 'sleep 10'
 			}
 		}
+		stage ('test - app'){
+			steps {
+				sh 'chmod +x teste-app.sh'
+				sh './teste-app.sh'
+			}
+		}
 		stage ('SonarQube - Connection and Validation'){
-			script {
+			environment {
 				def scannerHome = tool 'SonarQubeScanner';
 			}
 			steps {
@@ -24,12 +30,6 @@ pipeline {
 		stage ('Quality Gates - SonarQube'){
 			steps {
 				waitForQualityGate abortPipeline: true
-			}
-		}
-		stage ('test - app'){
-			steps {
-				sh 'chmod +x teste-app.sh'
-				sh './teste-app.sh'
 			}
 		}
 	}
