@@ -21,7 +21,7 @@ pipeline {
 			}
 		}
 		stage ('quality'){
-			steps {
+			node {
 				withSonarQubeEnv () {
 					sh "${scannerHome}/bin/sonar-scanner"
 				}
