@@ -17,10 +17,9 @@ pipeline {
 				sh './teste-app.sh'
 			}
 		}
-		stage ('SonarQube Analysis') {
-			node {
-				def scannerHome = tool 'SonarQubeScanner';
-				sh "${scannerHome}/bin/sonar-scanner"
+		node {
+			stage ('SCM') {
+				checkout scm
 			}
 		}
 	}
