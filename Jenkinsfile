@@ -18,12 +18,12 @@ pipeline {
 			}
 		}
 		stage ('quality'){
+			tools {
+				sonarQube 'SonarQubeScanner'
+			}
 			steps {
-				script {
-					scannerHome = tool 'SonarQubeScanner'
-				}
 				withSonarQubeEnv () {
-					sh "${scannerHome}/bin/sonar-scanner"
+					sh 'sonar-scanner'
 				}
 			}
 		}
