@@ -1,30 +1,35 @@
 pipeline {
 	agent any
 	stages {
-		stage ('subir docker compose - app'){
+		stage ('Build and Up docker compose - app'){
 			steps {
 				sh 'docker compose up --build -d'	
 			}
 		}
-		stage ('sleep para dar tempo dos containers ficarem ativos'){
+		stage ('sleep - containers'){
 			steps {
 				sh 'sleep 10'
 			}
 		}
-		stage ('teste de aplicacao'){
-			steps {
-				sh 'chmod +x teste-app.sh'
-				sh './teste-app.sh'
-			}
-		}
-		stage ('quality'){
-			environment {
-				def scannerHome = tool 'SonarQubeScanner';
+		stage ('SonarQube - Connection and Validation'){
+			script {
+				scannerHome = tool 'SonarQubeScanner'
 			}
 			steps {
 				withSonarQubeEnv ('') {
-					sh "${scannerHome}/bin/sonar-scanner"
+					sh '${scannerHome}/bin/sonar-scanner'
 				}
+			}
+		}
+		stage ('Quality Gates - SonarQube'){
+			steps {
+				waitForQualityGate abortPipeline: true
+			}
+		}
+		stage ('test - app'){
+			steps {
+				sh 'chmod +x teste-app.sh'
+				sh './teste-app.sh'
 			}
 		}
 	}
