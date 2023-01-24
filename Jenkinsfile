@@ -1,5 +1,4 @@
 pipeline {
-	agent any
 	stages {
 		stage ('subir docker compose - app'){
 			steps {
