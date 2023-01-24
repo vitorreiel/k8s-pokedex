@@ -38,11 +38,7 @@ pipeline {
 				}
 			}
 		}
-		stage ('Shutdown dos containers'){
-			steps {
-				sh 'docker compose down'	
-			}
-		}
+
 //		stage ('Quality Gates - SonarQube'){
 //			steps {
 //				waitForQualityGate abortPipeline: true
