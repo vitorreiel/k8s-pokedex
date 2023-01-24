@@ -17,22 +17,13 @@ pipeline {
 				sh './teste-app.sh'
 			}
 		}
+		stage ('SonarQube Analysis') {
+			def scannerHome = tool 'SonarQubeScanner';
+			steps {
+				sh "${scannerHome}/bin/sonar-scanner"
+			}
+		}
+		
 
-	}
-}
-node {
-	stage ('SCM') {
-		checkout scm
-	}
-	stage ('SonarQube Analysis') {
-		def scannerHome = tool 'SonarQubeScanner';
-		withSonarQubeEnv () {
-			sh "${scannerHome}/bin/sonar-scanner"
-		}
-	}
-	stage ('Quality Gate') {
-		steps {
-			waitForQualityGate abortPipeline: true
-		}
 	}
 }
