@@ -17,15 +17,12 @@ pipeline {
 				sh './teste-app.sh'
 			}
 		}
-
-	}
-}
-node {
-	stage ('SonarQube analise') {
-		def scannerHome = tool 'SonarQubeScanner';
-		withSonarQubeEnv () {
-			sh "${scannerHome}/bin/sonar-scanner"
+		stage ('SonarQube analise') {
+			def scannerHome = tool 'SonarQubeScanner';
+			withSonarQubeEnv () {
+				sh "${scannerHome}/bin/sonar-scanner"
+			}
 		}
-	}
 
+	}
 }
