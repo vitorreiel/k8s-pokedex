@@ -13,7 +13,7 @@ pipeline {
 		}
 		stage ('SonarQube - Connection and Validation'){
 			script {
-				scannerHome = tool 'SonarQubeScanner'
+				def scannerHome = tool 'SonarQubeScanner';
 			}
 			steps {
 				withSonarQubeEnv ('') {
