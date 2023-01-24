@@ -1,5 +1,5 @@
 pipeline {
-	agent none
+	agent any
 	stages {
 		stage ('subir docker compose - app'){
 			steps {
@@ -18,8 +18,7 @@ pipeline {
 			}
 		}
 		stage ('SonarQube Analysis') {
-			agent any
-			steps {
+			node {
 				withSonarQubeEnv() {
 					sh 'mvn clean package sonar:sonar'
 				}
