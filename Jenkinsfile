@@ -19,8 +19,9 @@ pipeline {
 		}
 		stage ('SonarQube Analysis') {
 			node {
+				def scannerHome = tool 'SonarQubeScanner';
 				withSonarQubeEnv() {
-					sh 'mvn clean package sonar:sonar'
+					sh "${scannerHome}/bin/sonar-scanner"
 				}
 			}
 		}
