@@ -22,7 +22,9 @@ pipeline {
 		}
 		stage ('quality'){
 			steps {
-				node "${scannerHome}/bin/sonar-scanner"
+				withSonarQubeEnv () {
+					node "${scannerHome}/bin/sonar-scanner"
+				}
 			}
 		}
 	}
