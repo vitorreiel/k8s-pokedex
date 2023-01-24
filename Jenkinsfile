@@ -18,12 +18,12 @@ pipeline {
 			}
 		}
 		stage ('SonarQube - Connection and Validation'){
-			environment {
-				def scannerHome = tool 'SonarQubeScanner';
+			script {
+				scannerHome = tool 'SonarQubeScanner';
 			}
 			steps {
 				withSonarQubeEnv ('') {
-					sh "${scannerHome}/bin/sonar-scanner"
+					sh '${scannerHome}/bin/sonar-scanner'
 				}
 			}
 		}
