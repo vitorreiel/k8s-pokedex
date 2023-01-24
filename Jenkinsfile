@@ -20,10 +20,10 @@ pipeline {
 				sh './teste-app.sh'
 			}
 		}
-	}
-	node {
-		withSonarQubeEnv () {
-			sh "${scannerHome}/bin/sonar-scanner"
+		stage ('quality'){
+			steps {
+				node "${scannerHome}/bin/sonar-scanner"
+			}
 		}
 	}
 }
