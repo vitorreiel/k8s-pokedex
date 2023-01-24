@@ -6,7 +6,7 @@ pipeline {
 				sh 'docker compose up --build -d'	
 			}
 		}
-		stage ('sleep - containers'){
+		stage ('Sleep - containers'){
 			steps {
 				sh 'sleep 10'
 			}
@@ -21,13 +21,23 @@ pipeline {
 				}
 			}
 		}
-		stage ('test - app'){
+		stage ('Test - app'){
 			steps {
 				sh 'chmod +x teste-app.sh'
 				sh './teste-app.sh'
 			}
 		}
-		
+		stage ('Upload Docker image'){
+			steps {
+				script {
+					withCredentials([usernamePassword(creditialsId: 'nexus-user', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+						sh 'docker login -u $USERNAME -p $PASSWORD ${NEXUS_URL}'
+						sh 'docker tag pokedex-app-web:latest ${NEXUS_URL}/pokedex-app-web'
+						sh 'docker push ${NEXUS_URL}/pokedex-app-web'
+					}
+				}
+			}
+		}
 //		stage ('Quality Gates - SonarQube'){
 //			steps {
 //				waitForQualityGate abortPipeline: true
