@@ -21,9 +21,7 @@ pipeline {
 			}
 		}
 		stage {
-			steps {
-				sh "${scannerHome}/bin/sonar-scanner"
-			}
+			sh "${scannerHome}/bin/sonar-scanner"
 		}
 	}
 }
