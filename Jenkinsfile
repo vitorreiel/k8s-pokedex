@@ -27,6 +27,11 @@ pipeline {
 				sh './teste-app.sh'
 			}
 		}
+		stage ('Shutdown dos containers'){
+			steps {
+				sh 'docker compose down'	
+			}
+		}
 		stage ('Upload Docker image'){
 			steps {
 				script {
