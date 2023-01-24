@@ -27,11 +27,6 @@ pipeline {
 				sh './teste-app.sh'
 			}
 		}
-		stage ('Shutdown dos containers'){
-			steps {
-				sh 'docker compose down'	
-			}
-		}
 		stage ('Upload Docker image'){
 			steps {
 				script {
@@ -41,6 +36,11 @@ pipeline {
 						sh 'docker push ${NEXUS_URL}/pokedex-app-web'
 					}
 				}
+			}
+		}
+		stage ('Shutdown dos containers'){
+			steps {
+				sh 'docker compose down'	
 			}
 		}
 //		stage ('Quality Gates - SonarQube'){
