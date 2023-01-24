@@ -1,7 +1,7 @@
 pipeline {
 	agent any
 	stages {
-		stage ('Build and Up docker compose - app'){
+		stage ('Build Docker + Nexus - app'){
 			steps {
 				sh 'docker compose up --build -d'	
 			}
