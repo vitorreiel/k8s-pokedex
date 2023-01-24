@@ -11,16 +11,6 @@ pipeline {
 				sh 'sleep 10'
 			}
 		}
-		stage ('SonarQube - Connection and Validation'){
-			steps {
-				script {
-					scannerHome = tool 'SonarQubeScanner'
-				}
-				withSonarQubeEnv ('') {
-					sh "${scannerHome}/bin/sonar-scanner"
-				}
-			}
-		}
 		stage ('test - app'){
 			steps {
 				sh 'chmod +x teste-app.sh'
