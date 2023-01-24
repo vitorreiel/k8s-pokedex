@@ -1,5 +1,8 @@
 pipeline {
 	agent any
+	environment {
+		scannerHome = tool 'SonarQubeScanner'
+	}
 	stages {
 		stage ('subir docker compose - app'){
 			steps {
@@ -17,9 +20,9 @@ pipeline {
 				sh './teste-app.sh'
 			}
 		}
-		node {
-			stage ('SCM') {
-				checkout scm
+		stage {
+			steps {
+				sh "${scannerHome}/bin/sonar-scanner"
 			}
 		}
 	}
