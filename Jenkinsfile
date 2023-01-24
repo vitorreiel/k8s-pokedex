@@ -1,6 +1,9 @@
 pipeline {
 	agent any
 	stages {
+		environment {
+			def scannerHome = tool 'SonarQubeScanner';
+		}
 		stage ('subir docker compose - app'){
 			steps {
 				sh 'docker compose up --build -d'	
@@ -19,9 +22,6 @@ pipeline {
 		}
 		stage ('quality'){
 			steps {
-				script{
-					def scannerHome = tool 'SonarQubeScanner';
-				}
 				withSonarQubeEnv () {
 					sh "${scannerHome}/bin/sonar-scanner"
 				}
