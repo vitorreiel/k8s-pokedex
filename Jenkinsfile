@@ -20,8 +20,5 @@ pipeline {
 				sh './teste-app.sh'
 			}
 		}
-		stage {
-			sh "${scannerHome}/bin/sonar-scanner"
-		}
 	}
 }
