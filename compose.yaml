@@ -5,4 +5,13 @@ services:
     build: ./web
     ports:
       - '3001:3001'
-
+  nexus:
+    image: 'sonatype/nexus3:3.45.1'
+    container_name: nexus
+    volumes:
+      - "nexus-data:/nexus-data"
+    ports:
+      - '8081:8081'
+      - '8123:8123'
+volumes:
+  nexus-data: {}
