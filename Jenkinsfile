@@ -27,17 +27,17 @@ pipeline {
 				sh './teste-app.sh'
 			}
 		}
-		stage ('Upload Docker image'){
-			steps {
-				script {
-					withCredentials([usernamePassword(credentialsId: 'nexus-user', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-						sh 'docker login -u $USERNAME -p $PASSWORD ${NEXUS_URL}'
-						sh 'docker tag pokedex-app-web:latest ${NEXUS_URL}/pokedex-app-web'
-						sh 'docker push ${NEXUS_URL}/pokedex-app-web'
-					}
-				}
-			}
-		}
+//		stage ('Upload Docker image'){
+//			steps {
+//				script {
+//					withCredentials([usernamePassword(credentialsId: 'nexus-user', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+//						sh 'docker login -u $USERNAME -p $PASSWORD ${NEXUS_URL}'
+//						sh 'docker tag pokedex-app-web:latest ${NEXUS_URL}/pokedex-app-web'
+//						sh 'docker push ${NEXUS_URL}/pokedex-app-web'
+//					}
+//				}
+//			}
+//		}
 //		stage ('Apply Kubernetes files'){
 //	steps{
 //				sh '/usr/local/bin/kubectl apply -f ./k3s/node.yaml'
