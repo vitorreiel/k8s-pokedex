@@ -38,6 +38,12 @@ pipeline {
 				}
 			}
 		}
+		stage ('Apply Kubernetes files'){
+			steps{
+				sh '/usr/local/bin/kubectl apply -f ./k3s/node.yaml'
+				sh '/usr/local/bin/kubectl apply -f ./k3s/pokedex-app.yaml'
+			}
+		}
 //		stage ('Shutdown dos containers'){
 //			steps {
 //				sh 'docker compose down'	
