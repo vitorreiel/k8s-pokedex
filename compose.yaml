@@ -3,7 +3,7 @@ services:
   web:
     container_name: poke
     build: ./web
-    image: pokedex/app
+    image: pokedex/app:latest
     ports:
       - '3001:3001'
   nexus:
