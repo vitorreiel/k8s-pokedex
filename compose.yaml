@@ -6,6 +6,21 @@ services:
     image: pokedex/app:${TAG}
     ports:
       - '3001:3001'
+  prometheus:
+    image: 'bitnami/prometheus:2.41.0'
+    container_name: prometheus
+    ports:
+      - '9090:9090'
+  node-exporter:
+    image: 'bitnami/node-exporter:1.5.0'
+    container_name: node-exporter
+    ports:
+      - '9100:9100'
+  grafana:
+    image: 'grafana/grafana:9.3.6'
+    container_name: grafana
+    ports:
+      - '3000:3000'
   nexus:
     image: 'sonatype/nexus3:3.45.1'
     container_name: nexus
