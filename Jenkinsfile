@@ -22,7 +22,7 @@ pipeline {
 				withSonarQubeEnv ('SonarQube-server') {
 					sh "${scannerHome}/bin/sonar-scanner"
 				}
-				sh 'Sleep 10'
+				sh 'sleep 10'
 			}
 		}
 		stage ('Quality Gates - SonarQube'){
