@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: pokedex-app-web
-          image: pokedex/app:latest
+          image: pokedex/app:TAG
           resources:
             requests:
               memory: '64Mi'
