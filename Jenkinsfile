@@ -1,5 +1,8 @@
 pipeline {
 	agent any
+	environment {
+		TAG = sh (script: 'git describe --abrev=0',,returnStdout: true).trim()
+	}
 	stages {
 		stage ('Build Docker Images on Nodejs + Nexus - app'){
 			steps {
@@ -32,8 +35,8 @@ pipeline {
 				script {
 					withCredentials([usernamePassword(credentialsId: 'nexus-user', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
 						sh 'docker login -u $USERNAME -p $PASSWORD ${NEXUS_URL}'
-						sh 'docker tag pokedex/app:latest ${NEXUS_URL}/pokedex/app'
-						sh 'docker push ${NEXUS_URL}/pokedex/app'
+						sh 'docker tag pokedex/app:${TAG} ${NEXUS_URL}/pokedex/app:${TAG}'
+						sh 'docker push ${NEXUS_URL}/pokedex/app:${TAG}'
 					}
 				}
 			}
