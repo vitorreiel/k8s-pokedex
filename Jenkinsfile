@@ -4,17 +4,17 @@ pipeline {
 		TAG = sh (script: 'git describe --abbrev=0',,returnStdout: true).trim()
 	}
 	stages {
-		stage ('Build Images Nodejs + Nexus - app'){
+		stage ('Build Images Docker'){
 			steps {
 				sh 'docker compose up --build -d'	
 			}
 		}
-		stage ('Sleep - containers'){
+		stage ('Containers Up'){
 			steps {
 				sh 'sleep 10'
 			}
 		}
-		stage ('SonarQube - Connection and Validation'){
+		stage ('Connection and Validation - SonarQube'){
 			steps {
 				script {
 					scannerHome = tool 'SonarQubeScanner'
