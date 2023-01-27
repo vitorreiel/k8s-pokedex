@@ -47,6 +47,12 @@ pipeline {
 				}
 			}
 		}
+		stage ('Apply Kubernetes files'){
+			steps{
+				sh "sed -i -e 's#TAG#${TAG}#' ./k8s/pokedex-app.yaml;"
+				sh '/usr/local/bin/kubectl apply -f ./k8s/pokedex-app.yaml'
+			}
+		}
 //		stage ('Shutdown dos containers'){
 //			steps {
 //				sh 'docker compose down'	
