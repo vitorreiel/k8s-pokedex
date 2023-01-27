@@ -1,5 +1,8 @@
 pipeline {
 	agent any
+	environment {
+		TAG = sh (script: 'git describe --abrev=0',,returnStdout: true).trim()
+	}
 	stages {
 		stage ('Build da Imagem Docker'){
 			steps {
