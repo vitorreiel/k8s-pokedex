@@ -4,7 +4,12 @@ pipeline {
 		TAG = sh (script: 'git describe --abrev=0',,returnStdout: true).trim()
 	}
 	stages {
-		stage ('Build Docker Images on Nodejs + Nexus - app'){
+		stage ('Build da Imagem Docker'){
+			steps {
+				sh 'docker build -t pokedex/app:${TAG} ./web'
+			}
+		}
+		stage ('Docker compose Nodejs + Nexus - app'){
 			steps {
 				sh 'docker compose up --build -d'	
 			}
