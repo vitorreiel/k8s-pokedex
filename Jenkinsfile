@@ -20,7 +20,7 @@ pipeline {
 					scannerHome = tool 'SonarQubeScanner'
 				}
 				withSonarQubeEnv ('SonarQube-server') {
-					sh "${scannerHome}/bin/sonar-scanner"
+					sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=pokedex-app"
 				}
 				sh 'sleep 10'
 			}
