@@ -4,7 +4,7 @@ pipeline {
 		TAG = sh (script: 'git describe --abbrev=0',,returnStdout: true).trim()
 	}
 	stages {
-		stage ('Build Image Docker compose Nodejs + Nexus - app'){
+		stage ('Build Images Nodejs + Nexus - app'){
 			steps {
 				sh 'docker compose up --build -d'	
 			}
