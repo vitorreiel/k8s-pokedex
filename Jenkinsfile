@@ -22,6 +22,12 @@ pipeline {
 				withSonarQubeEnv ('SonarQube-server') {
 					sh "${scannerHome}/bin/sonar-scanner"
 				}
+				sh 'Sleep 10'
+			}
+		}
+		stage ('Quality Gates - SonarQube'){
+			steps {
+				waitForQualityGate abortPipeline: true
 			}
 		}
 		stage ('Test - app'){
@@ -50,11 +56,6 @@ pipeline {
 //		stage ('Shutdown dos containers'){
 //			steps {
 //				sh 'docker compose down'	
-//			}
-//		}
-//		stage ('Quality Gates - SonarQube'){
-//			steps {
-//				waitForQualityGate abortPipeline: true
 //			}
 //		}
 	}
