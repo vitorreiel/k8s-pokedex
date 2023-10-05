@@ -7,22 +7,11 @@ pipeline {
 		stage('Executar Pipeline Secundária') {
 		    steps {
 			script {
-			    def result = build(job: 'employees', propagate: false)
-			    if (result == 'SUCCESS') {
-				echo 'Pipeline Secundária concluída com sucesso.'
-			    } else {
-				currentBuild.result = 'ABORTED'
-				error('A Pipeline Secundária falhou. A Pipeline Principal foi interrompida.')
-			    }
+			    build(job: 'employees', propagate: true)
 			}
 		    }
 		}
 		stage ('Build Images Docker'){
-			when {
-				expression {
-					currentBuild.resultIsBetterOrEqualTo('SUCCESS')	
-				} 
-			}
 			steps {
 				sh 'docker compose up --build -d'	
 			}
