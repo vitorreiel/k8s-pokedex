@@ -4,6 +4,19 @@ pipeline {
 		TAG = sh (script: 'git describe --abbrev=0',,returnStdout: true).trim()
 	}
 	stages {
+		stage('Executar Pipeline Secundária') {
+		    steps {
+			script {
+			    def result = build(job: 'employees', propagate: false)
+			    if (result == 'SUCCESS') {
+				echo 'Pipeline Secundária concluída com sucesso.'
+			    } else {
+				currentBuild.result = 'ABORTED'
+				error('A Pipeline Secundária falhou. A Pipeline Principal foi interrompida.')
+			    }
+			}
+		    }
+		}
 		stage ('Build Images Docker'){
 			steps {
 				sh 'docker compose up --build -d'	
