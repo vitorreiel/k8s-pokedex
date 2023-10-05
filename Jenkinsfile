@@ -18,6 +18,11 @@ pipeline {
 		    }
 		}
 		stage ('Build Images Docker'){
+			when {
+				expression {
+					currentBuild.resultIsBetterOrEqualTo('SUCCESS')	
+				} 
+			}
 			steps {
 				sh 'docker compose up --build -d'	
 			}
